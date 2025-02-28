@@ -1,0 +1,12 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "users",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "line_user_id", "order": "ASCENDING" },
+        { "fieldPath": "last_consultation_date", "order": "ASCENDING" }
+      ]
+    }
+  ]
+} 
