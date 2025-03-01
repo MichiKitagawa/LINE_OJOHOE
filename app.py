@@ -67,7 +67,6 @@ async def root():
     }
 
 @app.post("/webhook")
-@app.post("/webhook/line")
 async def line_webhook(request: Request):
     signature = request.headers.get("X-Line-Signature", "")
     body = await request.body()
@@ -78,8 +77,9 @@ async def line_webhook(request: Request):
         for event in events:
             if isinstance(event, MessageEvent) and isinstance(event.message, TextMessage):
                 await line_webhook_handler.handle_message(event)
-        return JSONResponse(content={"message": "OK"})
+        return JSONResponse(content={"message": "OK"}, status_code=200)
     except InvalidSignatureError:
+        print("❌ 署名が一致しません")
         raise HTTPException(status_code=400, detail="Invalid signature")
     except Exception as e:
         print(f"Error in line_webhook: {e}")
